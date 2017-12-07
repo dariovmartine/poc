@@ -23,7 +23,7 @@ endpoints:
 #Zuul routes active 
 zuul: 
  routes:
-  public-restservice: 
+  users: 
    path: /einvoice/**
    serviceId: e-invoice
  

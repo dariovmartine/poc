@@ -1,0 +1,57 @@
+buildscript {
+        repositories {
+            mavenCentral()
+            maven { url 'http://repo.spring.io/milestone/' }
+            maven { url 'https://repo.spring.io/release/' }
+            maven { url 'http://repo.spring.io/snapshot' }
+        }
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7")
+        }
+}
+    
+subprojects {
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://repo.spring.io/release/' }
+        maven { url "http://repo.spring.io/libs-snapshot-local" }
+        maven { url "http://repo.spring.io/libs-milestone-local" }
+        maven { url "http://repo.spring.io/libs-release-local" }
+    }   
+
+    version =  '0.1.0'
+    group = 'com.directv.afe'
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'maven'
+    
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    
+    dependencyManagement {
+        imports { 
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.BUILD-SNAPSHOT"
+        }
+    }
+    
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "http://172.17.201.125:8081/nexus/content/repositories/bootcamp/") {
+                    authentication(userName: "TCPAndroid", password: "tcpandroid")
+                }
+               pom.version = project.jar.version
+               pom.artifactId = project.jar.baseName
+               pom.groupId = project.jar.group
+            }        
+        }
+    }
+
+    uploadArchives.dependsOn(bootJar)
+}
