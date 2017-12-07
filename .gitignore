@@ -28,3 +28,11 @@ code/invoiceAPI/.classpath
 code/invoiceAPI/.project
 code/invoiceAPI/.settings/
 code/invoiceAPI/bin/
+clientAPI/build/
+cloudConfig/build/
+cloudConfig/cookies
+discoveryService/build/
+eInvoiceAPI/build/
+emailAPI/build/
+invoiceAPI/build/
+
