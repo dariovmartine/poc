@@ -10,15 +10,22 @@ buildscript {
     }
 }
 
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'maven'
+apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'apiGateway'
     version =  '0.1.0'
+    group = 'com.directv.afe'
+}
+
+
+bootJar {
+	classifier = project.jar.version
 }
 
 repositories {
@@ -33,3 +40,20 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-zuul:+")
     
 }
+
+
+uploadArchives {
+    repositories {
+       mavenDeployer {
+             repository(url: "http://172.17.201.125:8081/nexus/content/repositories/bootcamp/") {
+             	authentication(userName: "TCPAndroid", password: "tcpandroid")
+			 }
+			 pom.version = project.jar.version
+             pom.artifactId = project.jar.baseName
+             pom.groupId = project.jar.group
+       }
+    }
+}
+
+uploadArchives.dependsOn(bootJar)
+
