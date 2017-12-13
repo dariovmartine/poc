@@ -37,3 +37,4 @@ eureka:
 ribbon:
  eureka:
   enabled: true
+ ReadTimeout: 30000
