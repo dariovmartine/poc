@@ -30,7 +30,11 @@ docker run --name api-gateway  --rm -p 8080:8080 -d -e "RELEASE_LOCAL=0.1.0" -e 
 
 docker run --name client-api  --rm -d -e "RELEASE_LOCAL=0.1.0" -e "DISCOVERY_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" discovery-service`" -e "CONFIG_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" cloud-config`" -v $PWD/../code/clientAPI/build/libs:/opt/cloud_home -v $PWD/logs:/opt/cloud_home/logs client-api
 
+docker run --name email-api  --rm -d -e "RELEASE_LOCAL=0.1.0" -e "DISCOVERY_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" discovery-service`" -e "CONFIG_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" cloud-config`" -v $PWD/../code/emailAPI/build/libs:/opt/cloud_home -v $PWD/logs:/opt/cloud_home/logs email-api
 
+docker run --name invoice-api  --rm -d -e "RELEASE_LOCAL=0.1.0" -e "DISCOVERY_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" discovery-service`" -e "CONFIG_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" cloud-config`" -v $PWD/../code/invoiceAPI/build/libs:/opt/cloud_home -v $PWD/logs:/opt/cloud_home/logs invoice-api
+
+docker run --name einvoice-api  --rm -d -e "RELEASE_LOCAL=0.1.0" -e "DISCOVERY_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" discovery-service`" -e "CONFIG_SERVICE_IP=`docker inspect -f "{{ .NetworkSettings.IPAddress }}" cloud-config`" -v $PWD/../code/eInvoiceAPI/build/libs:/opt/cloud_home -v $PWD/logs:/opt/cloud_home/logs einvoice-api
 
 
 
