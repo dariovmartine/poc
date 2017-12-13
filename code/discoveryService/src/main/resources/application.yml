@@ -11,3 +11,5 @@ eureka:
       defaultZone: http://172.18.0.3:8761/eureka
  server:
   waitTimeInMsWhenSyncEmpty: 0
+  
+  

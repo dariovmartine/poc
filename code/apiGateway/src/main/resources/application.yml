@@ -35,6 +35,20 @@ eureka:
 
 #Ribbon Activation
 ribbon:
- eureka:
-  enabled: true
- ReadTimeout: 30000
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  eureka:
+    enabled: true
+  
+#resolve the service time-out exception
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000 # Increase the Hystrix timeout to 60s (globally)
+
+
+
+ 
