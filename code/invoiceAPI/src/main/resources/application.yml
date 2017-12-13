@@ -14,8 +14,10 @@ server:
 
 #Eureka Instance ID
 eureka:
- instance:
-  instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_SERVICE_IP:localhost}:8761/eureka/ 
+
   
 ribbon:
   eureka:

@@ -29,8 +29,9 @@ zuul:
  
 #Eureka Instance ID
 eureka:
- instance:
-  instanceId: ${spring.application.name}:${server.port} 
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_SERVICE_IP:localhost}:8761/eureka/ 
 
 #Ribbon Activation
 ribbon:
