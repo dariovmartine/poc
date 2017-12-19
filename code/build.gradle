@@ -1,3 +1,13 @@
+allprojects {
+
+  group = 'com.directv.afe'
+
+  ext {
+    springBootVersion = '2.0.0.M7'
+    springCloudVersion = '2.0.0.M2'
+  }
+}
+
 buildscript {
         repositories {
             mavenCentral()
@@ -22,8 +32,7 @@ subprojects {
     }   
 
     version =  '0.1.0'
-    group = 'com.directv.afe'
-
+    
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'

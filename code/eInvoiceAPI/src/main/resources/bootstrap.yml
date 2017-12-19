@@ -1,4 +1,0 @@
-spring:
-  cloud:
-    config:
-      uri: http://${CONFIG_SERVICE_IP:localhost}:8888/     

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="WsDirectvIVRService" targetNamespace="http://co.com.computec.directvivr.ws/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://co.com.computec.directvivr.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://co.com.computec.directvivr.ws/" schemaLocation="WsDirectvIVRService_schema1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="WSBusinessRuleException">
+    <part name="fault" element="tns:WSBusinessRuleException">
+    </part>
+  </message>
+  <message name="enviarDocumento">
+    <part name="parameters" element="tns:enviarDocumento">
+    </part>
+  </message>
+  <message name="enviarDocumentoResponse">
+    <part name="parameters" element="tns:enviarDocumentoResponse">
+    </part>
+  </message>
+  <message name="WSSystemException">
+    <part name="fault" element="tns:WSSystemException">
+    </part>
+  </message>
+  <portType name="WsDirectvIVR">
+    <operation name="enviarDocumento">
+      <input message="tns:enviarDocumento" wsam:Action="http://co.com.computec.directvivr.ws/WsDirectvIVR/enviarDocumentoRequest">
+    </input>
+      <output message="tns:enviarDocumentoResponse" wsam:Action="http://co.com.computec.directvivr.ws/WsDirectvIVR/enviarDocumentoResponse">
+    </output>
+      <fault name="WSSystemException" message="tns:WSSystemException" wsam:Action="http://co.com.computec.directvivr.ws/WsDirectvIVR/enviarDocumento/Fault/WSSystemException">
+    </fault>
+      <fault name="WSBusinessRuleException" message="tns:WSBusinessRuleException" wsam:Action="http://co.com.computec.directvivr.ws/WsDirectvIVR/enviarDocumento/Fault/WSBusinessRuleException">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="WsDirectvIVRPortBinding" type="tns:WsDirectvIVR">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="enviarDocumento">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="WSSystemException">
+        <soap:fault name="WSSystemException" use="literal"/>
+      </fault>
+      <fault name="WSBusinessRuleException">
+        <soap:fault name="WSBusinessRuleException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="WsDirectvIVRService">
+    <port name="WsDirectvIVRPort" binding="tns:WsDirectvIVRPortBinding">
+      <soap:address location="https://felec.computec.com/WsDirectvIVR/WsDirectvIVRService"/>
+    </port>
+  </service>
+</definitions>

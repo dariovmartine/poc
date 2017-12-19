@@ -4,7 +4,7 @@ jar {
 }
 
 dependencies {
-    compile("org.springframework.cloud:spring-cloud-starter-eureka:+")
-    compile("org.springframework.cloud:spring-cloud-starter-zuul:+")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka:$springCloudVersion")
+    compile("org.springframework.cloud:spring-cloud-starter-zuul:$springCloudVersion")
     
 }

@@ -1,0 +1,10 @@
+http:
+	port: 8080
+	
+endpoints:
+	ar:
+		url: https://webservice.exacttarget.com/Service.asmx
+		username : comunicacion@directvla.com.ar
+		password : directv#1
+	co:
+		url: https://felec.computec.com/WsDirectvIVR/WsDirectvIVRService	

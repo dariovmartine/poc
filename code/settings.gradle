@@ -1,7 +1,4 @@
 include "cloudConfig"
 include "apiGateway"
 include "discoveryService"
-include "clientAPI"
-include "invoiceAPI"
 include "emailAPI"
-include "eInvoiceAPI"
