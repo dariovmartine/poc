@@ -13,7 +13,10 @@ import javax.xml.ws.Response;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
+import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.ws.security.WSConstants;
 import org.apache.wss4j.common.ext.WSPasswordCallback;
+import org.apache.wss4j.dom.handler.WSHandlerConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -31,21 +34,12 @@ public class ArgentinaEmailEndpoint extends EmailEndpoint {
 	@Value("${endpoints.ar.url}")
 	private String url;
 	
-	class PasswordHandler implements CallbackHandler {
-
-		@Override
-		public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-			
-			WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
-			 
-	        if (pc.getIdentifier().equals("joe")) {
-	            // set the password on the callback. This will be compared to the
-	            // password which was sent from the client.
-	            pc.setPassword("password");
-	        }
-		}			
-	}
+	@Value("${endpoints.ar.username}")
+	private String username;
 	
+	@Value("${endpoints.ar.password}")
+	private String password;
+			
 	@PostConstruct
 	public void postConstruct() {
 		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
@@ -53,12 +47,12 @@ public class ArgentinaEmailEndpoint extends EmailEndpoint {
 		factory.setAddress(url);
 		
 		Map<String,Object> map = new HashMap<>();
-		map.put("action","UsernameToken");
-		map.put("passwordType","PasswordDigest");
-		map.put("passwordCallbackRef", new PasswordHandler());
-		WSHandlerConstants.USER, "joe");
+		map.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
+		map.put(WSHandlerConstants.PASSWORD_TYPE,  WSConstants.PW_TEXT);
+		map.put(WSHandlerConstants.PW_CALLBACK_REF, new PasswordHandler());
+		map.put(WSHandlerConstants.USER, username);
 		
-		WSS4JInInterceptor wss4j = new WSS4JInInterceptor(map );
+		WSS4JOutInterceptor wss4j = new WSS4JOutInterceptor(map );
 				
 		factory.getOutInterceptors().add(wss4j);
 		soapService = (Soap) factory.create();
@@ -72,9 +66,35 @@ public class ArgentinaEmailEndpoint extends EmailEndpoint {
 
 			@Override
 			public void handleResponse(Response<CreateResponse> res) {
+//				if (res.get() instanceof ClientCallback) {
+//				
+//					throw new Exception(((ClientCallback)res.get()).getException());
+//				}
 				
-				defResponse.setResult(new EmailResponse(1, "ok"));
+				//if (res.get() instanceof CreateResponse) {
+					defResponse.setResult(new EmailResponse(1, "ok"));
+				//}
+				
+				
+				
+				
 			}
 		});		
 	}
+	
+	class PasswordHandler implements CallbackHandler {
+
+		@Override
+		public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
+			
+			WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
+			 
+	        if (pc.getIdentifier().equals(username)) {
+	            // set the password on the callback. This will be compared to the
+	            // password which was sent from the client.
+	            pc.setPassword(password);
+	        }
+		}			
+	}
+
 }

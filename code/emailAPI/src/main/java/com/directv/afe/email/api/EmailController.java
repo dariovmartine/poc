@@ -28,12 +28,9 @@ import io.swagger.annotations.ApiResponses;
 @Api(value="emailController")
 public class EmailController {
 	
-	@Value("${property}")
-	String property = null;
-	
 	@RequestMapping("/")
     public Config config() {
-        return new Config(property);
+        return new Config("email API");
     }	
     
     @Autowired
@@ -48,7 +45,7 @@ public class EmailController {
     ColombiaEmailEndpoint colombiaEmailEndpoint; 
 	
     @PostConstruct
-	public void postConstruc(String uri) {
+	public void postConstruct() {
 		endpoints.put(Country.AR, argentinaEmailEndpoint);
 		endpoints.put(Country.CO, colombiaEmailEndpoint);
 	}

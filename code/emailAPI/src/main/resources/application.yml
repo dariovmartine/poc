@@ -10,7 +10,7 @@ info:
 
 #Port - If 0 get random port
 server: 
- port: ${emailAPI_HTTP_PORT}
+ port: ${http.port}
 
 #Eureka Instance ID
 eureka:

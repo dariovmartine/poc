@@ -8,5 +8,5 @@ Pasos para generar el codigo java cliente de los wsdl:
 
 Pruebas
 
-curl -v  localhost:8080/sendEmail -H "Content-Type: application/json" --data '{ "country" : "AR", "destination" : "dariovmartine@gmail.com" , "template" : "AR-FacturaElectronica-Welcome" , "attributes" : { "Nombre" : "Prueba" , "Apellido" : "Quique" , "Nro Cliente" : "123456789" , "url_link" : "http://www.google.com.ar" } } ' 
+	curl -v  localhost:8080/sendEmail -H "Content-Type: application/json" --data '{ "country" : "AR", "destination" : "dariovmartine@gmail.com" , "template" : "AR-FacturaElectronica-Welcome" , "attributes" : { "Nombre" : "Prueba" , "Apellido" : "Quique" , "Nro Cliente" : "123456789" , "url_link" : "http://www.google.com.ar" } } ' 
 

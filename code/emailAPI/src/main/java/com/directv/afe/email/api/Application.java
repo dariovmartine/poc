@@ -29,6 +29,9 @@ public class Application {
                 .build().apiInfo(metaData());
     }
     
+    /**
+     * metaData: me 
+     **/
     private ApiInfo metaData() {
     	
         ApiInfo apiInfo = new ApiInfo(
