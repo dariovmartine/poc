@@ -12,7 +12,6 @@ import javax.xml.ws.AsyncHandler;
 import javax.xml.ws.Response;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.ws.security.WSConstants;
 import org.apache.wss4j.common.ext.WSPasswordCallback;
@@ -66,18 +65,13 @@ public class ArgentinaEmailEndpoint extends EmailEndpoint {
 
 			@Override
 			public void handleResponse(Response<CreateResponse> res) {
-//				if (res.get() instanceof ClientCallback) {
-//				
-//					throw new Exception(((ClientCallback)res.get()).getException());
-//				}
 				
-				//if (res.get() instanceof CreateResponse) {
-					defResponse.setResult(new EmailResponse(1, "ok"));
-				//}
-				
-				
-				
-				
+				try {
+					res.get();
+					defResponse.setResult(new EmailResponse(0, "ok"));
+				} catch (Exception e) {
+					defResponse.setResult(new EmailResponse(1, "fail: " + e.getMessage()));
+				}
 			}
 		});		
 	}
