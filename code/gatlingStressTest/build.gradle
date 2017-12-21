@@ -48,9 +48,6 @@ sourceSets {
     test {
         scala { 
             srcDirs = ['src/gatling/scala']
-        }
-        resources {
-            srcDirs = ['src/gatling/resources','src/gatling/resources' ]
-        }
+        }        
     }
 }
