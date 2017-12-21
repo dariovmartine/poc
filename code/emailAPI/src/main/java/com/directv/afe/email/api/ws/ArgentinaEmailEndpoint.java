@@ -11,6 +11,9 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.xml.ws.AsyncHandler;
 import javax.xml.ws.Response;
 
+import org.apache.cxf.Bus;
+import org.apache.cxf.ext.logging.LoggingInInterceptor;
+import org.apache.cxf.ext.logging.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.ws.security.WSConstants;
@@ -44,16 +47,24 @@ public class ArgentinaEmailEndpoint extends EmailEndpoint {
 		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 		factory.setServiceClass(Soap.class);
 		factory.setAddress(url);
-		
+				
 		Map<String,Object> map = new HashMap<>();
 		map.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
 		map.put(WSHandlerConstants.PASSWORD_TYPE,  WSConstants.PW_TEXT);
 		map.put(WSHandlerConstants.PW_CALLBACK_REF, new PasswordHandler());
 		map.put(WSHandlerConstants.USER, username);
 		
+		LoggingInInterceptor logIn = new LoggingInInterceptor();
+		logIn.setPrettyLogging(true);
+		LoggingOutInterceptor logOut = new LoggingOutInterceptor();
+		logOut.setPrettyLogging(true);
+		
 		WSS4JOutInterceptor wss4j = new WSS4JOutInterceptor(map );
-				
+		
+		factory.getInInterceptors().add(logIn);
+		factory.getOutInterceptors().add(logOut);
 		factory.getOutInterceptors().add(wss4j);
+		
 		soapService = (Soap) factory.create();
 		
 	}

@@ -1,0 +1,30 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+	xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<soap:Header>
+		<wsa:Action>CreateResponse</wsa:Action>
+		<wsa:MessageID>urn:uuid:f8305eaf-f865-43ab-b613-37448759704d</wsa:MessageID>
+		<wsa:RelatesTo>urn:uuid:2d471411-9a86-48b8-9b27-f3bb5b60e45b</wsa:RelatesTo>
+		<wsa:To>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:To>
+		<wsse:Security>
+			<wsu:Timestamp wsu:Id="Timestamp-ae6db80a-b7bd-48fe-94e3-ab095da9d770">
+				<wsu:Created>2017-12-20T18:25:29Z</wsu:Created>
+				<wsu:Expires>2017-12-20T18:30:29Z</wsu:Expires>
+			</wsu:Timestamp>
+		</wsse:Security>
+	</soap:Header>
+	<soap:Body>
+		<CreateResponse xmlns="http://exacttarget.com/wsdl/partnerAPI">
+			<Results xsi:type="TriggeredSendCreateResult">
+				<StatusCode>OK</StatusCode>
+				<StatusMessage>Created TriggeredSend</StatusMessage>
+				<OrdinalID>0</OrdinalID>
+				<NewID>0</NewID>
+			</Results>
+			<RequestID>1d18b5e5-7fbd-43f1-976b-231e30cff41a</RequestID>
+			<OverallStatus>OK</OverallStatus>
+		</CreateResponse>
+	</soap:Body>
+</soap:Envelope> 

@@ -1,5 +1,7 @@
 package com.directv.afe.email.api;
 
+import static springfox.documentation.builders.PathSelectors.regex;
+
 import java.util.ArrayList;
 
 import org.springframework.boot.SpringApplication;
@@ -13,7 +15,6 @@ import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import static springfox.documentation.builders.PathSelectors.regex;
 
 @SpringBootApplication
 @EnableSwagger2
@@ -46,6 +47,8 @@ public class Application {
         return apiInfo;
 
     }
+    
+    
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

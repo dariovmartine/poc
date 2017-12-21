@@ -19,7 +19,7 @@ fi
 if [ -n "$RELEASE_LOCAL" ]; then
 
     echo "Iniciar el container usando el folder local"
-    java -DDISCOVERY_SERVICE_IP=$DISCOVERY_SERVICE_IP -jar "$CLOUD_HOME/apiGateway-$RELEASE_LOCAL.jar"  &> $CLOUD_HOME/logs/api-gateway.log
+    java -DDISCOVERY_SERVICE_IP=$DISCOVERY_SERVICE_IP  -jar "$CLOUD_HOME/apiGateway-$RELEASE_LOCAL.jar"  &> $CLOUD_HOME/logs/api-gateway.log
 fi
 
 

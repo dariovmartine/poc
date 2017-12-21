@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds" >
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    	<encoder>
+      		<pattern>%d{HH:mm:ss.SSS} - %-5level - [%thread] - %C{0}: %msg %n</pattern>
+    	</encoder>
+  	</appender>
+
+	<appender name="appAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${catalina.base}/logs/directvWSMock.log</file>
+		<encoder>
+    		<pattern>%d{HH:mm:ss.SSS} - %-5level - [%thread] - %C{0}: %msg %n</pattern>
+      	</encoder>
+	</appender>
+	
+	<logger name="org.apache.cxf" level="OFF"/>
+	<logger name="ar.com.personal.loginmobile.client.service" level="OFF"/>
+
+	<root level="INFO">
+		<appender-ref ref="appAppender"/>
+<!--   	<appender-ref ref="STDOUT"/>   -->
+	</root>
+</configuration>
