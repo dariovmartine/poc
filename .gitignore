@@ -37,3 +37,13 @@ code/discoveryService/build/
 code/eInvoiceAPI/build/
 code/emailAPI/build/
 code/invoiceAPI/build/
+
+code/billingAPI/\.settings/
+
+code/billingAPI/bin/
+
+code/\.settings/
+
+code/billingAPI/\.classpath
+
+code/billingAPI/\.project

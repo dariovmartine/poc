@@ -1,0 +1,25 @@
+
+
+jar {
+	baseName = 'billingAPI'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.cloud:spring-cloud-starter-config:$springCloudVersion")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka:$springCloudVersion")
+    
+    compile("org.apache.cxf:cxf-rt-frontend-jaxws:3.2.1")
+	compile("org.apache.cxf:cxf-rt-transports-http-hc:3.2.1")
+	compile("org.apache.cxf:cxf-rt-ws-security:3.2.1")
+	compile("org.apache.ws.security:wss4j:1.6.19")
+    
+    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testCompile("com.jayway.jsonpath:json-path:+")
+    
+    compile("io.springfox:springfox-swagger-ui:2.7.0")
+    compile("io.springfox:springfox-swagger2:2.7.0")
+    
+    compile("org.springframework.boot:spring-boot-starter-integration:$springBootVersion")
+}
+
