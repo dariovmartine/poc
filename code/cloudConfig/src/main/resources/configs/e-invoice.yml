@@ -1,0 +1,15 @@
+http:
+  port: 8086
+
+queues:
+  eInvoiceRequestChannel:
+    capacity: 30000
+  eInvoiceErrorChannel:
+    capacity: 30000
+  sendEmailChannel:
+    capacity: 30000    
+  createContactChannel:
+    capacity: 30000    
+  sendResponseChannel:
+    capacity: 30000    
+    

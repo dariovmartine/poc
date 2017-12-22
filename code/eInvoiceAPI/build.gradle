@@ -1,0 +1,19 @@
+
+jar {
+    baseName = 'eInvoiceAPI'
+    
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-integration:$springBootVersion")	
+    compile("org.springframework.cloud:spring-cloud-starter-config:$springCloudVersion")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka:$springCloudVersion")
+    compile("org.springframework.cloud:spring-cloud-starter-feign:$springCloudVersion") 
+    compile("org.springframework:spring-webmvc:5.0.2.RELEASE");
+    
+    
+    compile("io.springfox:springfox-swagger-ui:2.7.0")
+    compile("io.springfox:springfox-swagger2:2.7.0")   
+}
+
