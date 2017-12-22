@@ -10,8 +10,12 @@ info:
 
 #Port - If 0 get random port
 server: 
- port: 0
-
+ port: ${http.port}
+ tomcat:
+  acceptCount: 1000
+ # maxConnections: 40000
+ # max-threads: 800
+ 
 #Eureka Instance ID
 eureka:
   client:
