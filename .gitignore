@@ -37,6 +37,16 @@ code/discoveryService/build/
 code/eInvoiceAPI/build/
 code/emailAPI/build/
 code/invoiceAPI/build/
+code/gatlingStressTest/.classpath
+code/gatlingStressTest/.project
+code/gatlingStressTest/.settings/
+code/gatlingStressTest/bin/
+code/gatlingStressTest/build/
+code/dtv-mock/.classpath
+code/dtv-mock/.project
+code/dtv-mock/.settings/
+code/dtv-mock/bin/
+code/gatlingStressTest/.cache-main
 
 code/billingAPI/\.settings/
 

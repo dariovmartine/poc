@@ -1,0 +1,21 @@
+apply plugin: 'war'
+apply plugin: 'eclipse'
+
+repositories {
+   mavenCentral()
+   jcenter()
+}
+
+dependencies {
+	testCompile "junit:junit:4.12"
+	compile "commons-logging:commons-logging:1.2"
+	testCompile "org.mockito:mockito-all:1.10.19"
+	compile "org.springframework:spring-core:4.3.11.RELEASE"
+	compile "org.springframework:spring-web:4.3.11.RELEASE"
+	compile "org.springframework:spring-webmvc:4.3.11.RELEASE"
+	compile "commons-io:commons-io:2.4"
+	compile "javax.servlet:jstl:1.2"
+	compile "javax.servlet:javax.servlet-api:3.0.1"
+	compile "ch.qos.logback:logback-classic:1.2.3"
+	compile "com.fasterxml.jackson.core:jackson-databind:2.9.3"
+}

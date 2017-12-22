@@ -1,8 +1,10 @@
 #Application Name
 spring:
- application:
-  name: email
-     
+  application:
+    name: email
+  mvc:
+    async:
+      request-timeout: "60000"
 
 #Component Info 
 info:
@@ -11,6 +13,10 @@ info:
 #Port - If 0 get random port
 server: 
  port: ${http.port}
+ tomcat:
+  acceptCount: 1000
+ # maxConnections: 40000
+ # max-threads: 800
 
 #Eureka Instance ID
 eureka:

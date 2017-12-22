@@ -1,5 +1,8 @@
 package com.directv.afe.email.api.handler;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,7 +20,9 @@ public class DefaultExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({Exception.class})
 	public ErrorMessage handleContratoNotFound(Exception e){
-		logger.error(e.getMessage());
+		StringWriter sw = new StringWriter();
+		e.printStackTrace(new PrintWriter(sw));
+		logger.error(e.getMessage() + " stackTrace: " +sw.toString());
 		ErrorMessage error = new ErrorMessage(e.getMessage());
 		return error;
 	}

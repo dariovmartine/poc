@@ -1,0 +1,44 @@
+{
+	"webservice": "CustomerInterfaceManagementService",
+	"services": [
+		{
+		    "wsname": "AddCustomerInquiryRequest",
+			"name": "description",
+			"value" : "ADHESION / SDS",
+			"key" : "CustomerKey", 
+			"action": {
+				"webservice": "CRMSupportAndReadinessService",
+				"key" : "CustomerKey",
+				"name": "GetCustomerRequest",
+				"xpath": "GetCustomerResponse.GetCustomerResult.customer.CustomerAccountList.CustomerAccount.InvoiceDeliveryMethod.id",
+				"value": "1"
+			}
+		},
+		{
+		    "wsname": "AddCustomerInquiryRequest",
+			"name": "description",
+			"value" : "ADHESION / SDSNUEVO",
+			"key" : "CustomerKey", 
+			"action": {
+				"webservice": "CRMSupportAndReadinessService",
+				"key" : "CustomerKey",
+				"name": "GetCustomerRequest",
+				"xpath": "GetCustomerResponse.GetCustomerResult.customer.CustomerAccountList.CustomerAccount.InvoiceDeliveryMethod.id",
+				"value": "1"
+			}
+		},
+		{
+		    "wsname": "AddCustomerInquiryRequest",
+			"name": "description",
+			"value" : "BAJA / SDS",
+			"key" : "CustomerKey", 
+			"action": {
+				"webservice": "CRMSupportAndReadinessService",
+				"key" : "CustomerKey",
+				"name": "GetCustomerRequest",
+				"xpath": "GetCustomerResponse.GetCustomerResult.customer.CustomerAccountList.CustomerAccount.InvoiceDeliveryMethod.id",
+				"value": "2"
+			}
+		}
+	]
+}
