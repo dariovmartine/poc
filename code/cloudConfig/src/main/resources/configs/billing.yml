@@ -1,0 +1,6 @@
+http:
+  port: 8081
+
+service:
+  customer:
+    url: http://localhost:9093/DTVLA-Services/CRMSupportAndReadinessService

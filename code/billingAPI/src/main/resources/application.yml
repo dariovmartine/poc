@@ -1,0 +1,31 @@
+#Application Name
+spring:
+ application:
+  name: billing
+     
+
+#Component Info 
+info:
+ component: billingAPI
+
+#Port - If 0 get random port
+server: 
+ port: ${http.port}
+
+#Eureka Instance ID
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_SERVICE_IP:localhost}:8761/eureka/ 
+  instance:
+    preferIpAddress: true
+ 
+#Service Registration Method 
+cloud:
+ services:
+  registrationMethod: route
+ 
+#Disable HTTP Basic Authentication
+security:
+ basic:
+  enabled: false

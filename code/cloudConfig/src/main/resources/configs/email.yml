@@ -4,7 +4,7 @@ http:
 endpoints:
   ar:
     #url: https://webservice.exacttarget.com/Service.asmx
-    url: http://localhost:80/dtv-mock/ExactTarget
+    url: https://webservice.exacttarget.com/Service.asmx
     username : comunicacion@directvla.com.ar
     password : directv#1
   co:

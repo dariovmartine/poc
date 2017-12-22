@@ -47,3 +47,13 @@ code/dtv-mock/.project
 code/dtv-mock/.settings/
 code/dtv-mock/bin/
 code/gatlingStressTest/.cache-main
+
+code/billingAPI/\.settings/
+
+code/billingAPI/bin/
+
+code/\.settings/
+
+code/billingAPI/\.classpath
+
+code/billingAPI/\.project
