@@ -20,7 +20,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Application {
 	
-	
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -36,20 +35,17 @@ public class Application {
     private ApiInfo metaData() {
     	
         ApiInfo apiInfo = new ApiInfo(
-        	"Spring Boot REST API",
-            "Spring Boot REST API for Online Store",
+        	"Directv Email REST API",
+            "Directv Email REST API for EInvoice",
             "1.0",
             "Terms of service",
-            new Contact("John Thompson", "https://springframework.guru/about/", "john@springfrmework.guru"),
+            new Contact("Victor Dario Martinez", "https://globallogic.com/", "victor.martinez@globallogic.com"),
             "Apache License Version 2.0",
             "https://www.apache.org/licenses/LICENSE-2.0",new ArrayList<VendorExtension>());
 
         return apiInfo;
-
     }
     
-    
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
