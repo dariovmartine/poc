@@ -3,6 +3,7 @@ package com.directv.afe.einvoice.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -22,7 +23,7 @@ public class EInvoiceController {
 	@Autowired
 	EInvoiceGateway eInvoiceGateway;
    
-    @RequestMapping("/invoices")
+    @RequestMapping(value = "/invoices", method= RequestMethod.POST, consumes = "application/json",  produces = "application/json")
     public DeferredResult<EInvoiceResponse> einvoice(@RequestBody(required = true) EInvoiceRequest eInvoiceRequest) {
     	
     	DeferredResult<EInvoiceResponse> deferredResult = new DeferredResult<>();
