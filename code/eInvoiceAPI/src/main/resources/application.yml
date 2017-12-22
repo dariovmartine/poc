@@ -1,0 +1,35 @@
+#Application Name
+spring:
+ application:
+  name: e-invoice
+     
+
+#Component Info 
+info:
+ component: eInvoiceAPI
+
+#Port - If 0 get random port
+server: 
+ port: 0
+
+#Eureka Instance ID
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_SERVICE_IP:localhost}:8761/eureka/ 
+  instance:
+    preferIpAddress: true
+  
+ribbon:
+  eureka:
+    enabled: true
+ 
+#Service Registration Method 
+cloud:
+ services:
+  registrationMethod: route
+ 
+#Disable HTTP Basic Authentication
+security:
+ basic:
+  enabled: false
