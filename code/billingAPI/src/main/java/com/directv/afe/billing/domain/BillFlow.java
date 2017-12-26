@@ -22,6 +22,26 @@ public class BillFlow {
 	
 	private Country country;
 	
+	private String url;
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public BillInfo getInfo() {
+		return info;
+	}
+
+	public void setInfo(BillInfo info) {
+		this.info = info;
+	}
+
+	private BillInfo info;
+	
 	// TODO: Try to avoid passing through the response on the objects
 	// search for a better way to return it.
 	private DeferredResult<BillResponse> response = new DeferredResult<BillResponse>();

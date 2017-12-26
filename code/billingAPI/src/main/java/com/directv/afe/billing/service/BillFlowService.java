@@ -63,7 +63,7 @@ public class BillFlowService {
 	 * @return boolean if it should update the mail or not
 	 */
 	private boolean hasToUpdateMail(BillFlow userBill) {
-		if(!userBill.getEmail().isEmpty()) {
+		if(userBill.getEmail() != null && !userBill.getEmail().isEmpty()) {
 			for (String mail : userBill.getRegisteredMails()) {
 				if(userBill.getEmail().equals(mail)) {
 					return false;
@@ -87,7 +87,11 @@ public class BillFlowService {
 	
 	@ServiceActivator(inputChannel = "endChannel", poller = @Poller(fixedDelay = "1000"))
 	public void buildSendRequest(Message<BillFlow> msg) {
-		msg.getPayload().getResponse().setResult(new BillResponse(1, "ok"));
+		BillFlow bill = msg.getPayload();
+		BillResponse response = new BillResponse(BillResponse.OK_CODE, BillResponse.OK_MESSAGE);
+		response.setUrl(bill.getUrl());
+		
+		msg.getPayload().getResponse().setResult(response);
 		logger.debug("End of flow.");
 	}
 }
