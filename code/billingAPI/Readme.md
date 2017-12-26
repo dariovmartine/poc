@@ -1,7 +1,8 @@
 
 	cd src/test/resources
 
-	wsimport -s . -b dtv-async.xml CRMSupportAndReadinessService.wsdl
+	wsimport -s . -b CRMSupportAndReadinessService-async.xml CRMSupportAndReadinessService.wsdl
+	wsimport -s . -b ManageBillingEventsService-async.xml ManageBillingEventsService.wsdl
 
 
 Pruebas

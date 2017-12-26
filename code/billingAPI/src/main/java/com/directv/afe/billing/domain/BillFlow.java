@@ -1,5 +1,8 @@
 package com.directv.afe.billing.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.context.request.async.DeferredResult;
 
 /**
@@ -7,11 +10,13 @@ import org.springframework.web.context.request.async.DeferredResult;
  * @author Marco Capo
  *
  */
-public class UserBill {
+public class BillFlow {
 	
 	private CustomerType customerType;
 	
 	private String email;
+	
+	private List<String> registeredMails = new ArrayList<String>();
 	
 	private String customerKey;
 	
@@ -67,6 +72,14 @@ public class UserBill {
 
 	public void setBillID(String billID) {
 		this.billID = billID;
+	}
+
+	public List<String> getRegisteredMails() {
+		return registeredMails;
+	}
+
+	public void setRegisteredMails(List<String> registeredMails) {
+		this.registeredMails = registeredMails;
 	}
 
 }

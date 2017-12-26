@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WL5G3N0:definitions targetNamespace="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:WL5G3N2="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0" xmlns:WL5G3N3="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:documentation>
+        http://esb-sist.dtvla.com:80/soa-infra/services/DTVLA-Services/ManageBillingEvents-Service!1.2.2/ManageBillingEvents.wsdl
+        http://esb-sist.dtvla.com:80/soa-infra/services/DTVLA-Services/ManageBillingEvents-Service!1.2.2/ManageBillingEvents.wsdl
+    </WL5G3N0:documentation>
+  <WL5G3N1:partnerLinkType name="MedManageBillingEvents.MedManageBillingEvents">
+    <WL5G3N1:role name="ManageBillingEvents_pt">
+      <WL5G3N1:portType name="WL5G3N2:ManageBillingEvents_pt"/>
+    </WL5G3N1:role>
+  </WL5G3N1:partnerLinkType>
+  <WL5G3N1:partnerLinkType name="ManageBillingEventsService">
+    <WL5G3N1:role name="ManageBillingEvents_pt">
+      <WL5G3N1:portType name="WL5G3N2:ManageBillingEvents_pt"/>
+    </WL5G3N1:role>
+  </WL5G3N1:partnerLinkType>
+  <WL5G3N1:partnerLinkType name="AsyncPL">
+    <WL5G3N1:role name="CallBackPR">
+      <WL5G3N1:portType name="WL5G3N2:CallBack"/>
+    </WL5G3N1:role>
+    <WL5G3N1:role name="AsyncPR">
+      <WL5G3N1:portType name="WL5G3N2:Async"/>
+    </WL5G3N1:role>
+  </WL5G3N1:partnerLinkType>
+  <WL5G3N0:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:managebe-v1-0="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService?SCHEMA%2FDTVLA-Services%2FManageBillingEventsService%2FResources%2FSchemas%2FXMLSchema_1383193253"/>
+      <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService?SCHEMA%2FDTVLA-Services%2FManageBillingEventsService%2FResources%2FSchemas%2FXMLSchema_-1389313982"/>
+      <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService?SCHEMA%2FDTVLA-Services%2FManageBillingEventsService%2FResources%2FSchemas%2FXMLSchema_-1452033678"/>
+      <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService?SCHEMA%2FDTVLA-Services%2FManageBillingEventsService%2FResources%2FSchemas%2FXMLSchema_-1897344041"/>
+      <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService?SCHEMA%2FDTVLA-Services%2FManageBillingEventsService%2FResources%2FSchemas%2FXMLSchema_202751986"/>
+      <xsd:complexType name="GetCustomerFinancialAnalysis">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Identification" nillable="true" type="commonbd-v1-0:NationalIdentityCardIdentification"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="creditCardNumber" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerFinancialAnalysisResult">
+        <xsd:sequence>
+          <xsd:element name="Response" nillable="false" type="xsd:string"/>
+          <xsd:element maxOccurs="1" name="Code" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerFinancialAnalysisRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetFinancialAnalysis" type="managebe-v1-0:GetCustomerFinancialAnalysis"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialAnalysisResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetFinancialAnalysisResult" type="managebe-v1-0:GetCustomerFinancialAnalysisResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialAnalysisException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCustomerFinancialInfo">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CustomerKey" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CustomerAccountID" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerFinancialInfoResult">
+        <xsd:sequence>
+          <xsd:element name="customer" type="customerbd-v1-0:Customer"/>
+          <xsd:element name="invoice" type="customerbd-v1-0:Invoice"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerFinancialInfoRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element name="GetCustomerFinancialInfo" type="managebe-v1-0:GetCustomerFinancialInfo"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetCustomerFinancialInfoResult" type="managebe-v1-0:GetCustomerFinancialInfoResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialInfoException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCustomerFinancialTransactions">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CustomerAccountID" type="xsd:int"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="BankDate" type="xsd:dateTime"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="BaseAmount" type="xsd:decimal"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="LedgerAccountCollection" type="customerbd-v1-0:LedgerAccountCollection"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="ReversedTransactionId" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerFinancialTransactionsResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerFinancialTransactions" type="customerbd-v1-0:FinancialTransactionCollection"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerFinancialTransactionsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerFinancialTransactions" type="managebe-v1-0:GetCustomerFinancialTransactions"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialTransactionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetCustomerFinancialTransactionsResult" type="managebe-v1-0:GetCustomerFinancialTransactionsResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialTransactionsException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="InvoiceNumberHistoryCollection">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="InvoiceIDNumber" type="managebe-v1-0:InvoiceIDNumberType"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="FlagExists" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="SearchInvoiceID" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="SearchInvoiceNumber" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="InvoiceIDNumberType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="InvoiceID" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="InvoiceNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerInvoices">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CustomerAccountID" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerInvoicesResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="InvoiceCollection" type="customerbd-v1-0:InvoiceCollection"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerInvoicesRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerInvoices" type="managebe-v1-0:GetCustomerInvoices"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerInvoicesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetCustomerInvoicesResult" type="managebe-v1-0:GetCustomerInvoicesResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerInvoicesException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCustomerLastInvoice">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerLastInvoiceResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Invoice" type="customerbd-v1-0:Invoice"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerLastInvoiceRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerLastInvoice" type="managebe-v1-0:GetCustomerLastInvoice"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerLastInvoiceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerLastInvoiceResult" type="managebe-v1-0:GetCustomerLastInvoiceResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerLastInvoiceException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCustomerFinancialTransaction">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CustomerAccountID" type="xsd:int"/>
+          <xsd:element maxOccurs="1" name="FinancialTransactionId" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerFinancialTransactionResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerFinancialTransaction" type="customerbd-v1-0:FinancialTransaction"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerFinancialTransactionRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerFinancialTransaction" type="managebe-v1-0:GetCustomerFinancialTransaction"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialTransactionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetCustomerFinancialTransactionResult" type="managebe-v1-0:GetCustomerFinancialTransactionResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialTransactionException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCustomerInvoiceById">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CustomerAccountID" type="xsd:int"/>
+          <xsd:element maxOccurs="1" name="InvoiceId" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerInvoiceByIdResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="Invoice" type="customerbd-v1-0:Invoice"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerInvoiceByIdRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerInvoiceById" type="managebe-v1-0:GetCustomerInvoiceById"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerInvoiceByIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetCustomerInvoiceByIdResult" type="managebe-v1-0:GetCustomerInvoiceByIdResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerInvoiceByIdException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetLedgerAccountById">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="LedgerAccountId" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetLedgerAccountByIdResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="LedgerAccount" type="customerbd-v1-0:LedgerAccount"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetLedgerAccountByIdRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetLedgerAccountById" type="managebe-v1-0:GetLedgerAccountById"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetLedgerAccountByIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetLedgerAccountByIdResult" type="managebe-v1-0:GetLedgerAccountByIdResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetLedgerAccountByIdException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCustomerFinancialTransactionsByCriteria">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Criterias" type="commonbd-v1-0:CriteriaSpecification"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetCustomerFinancialTransactionsByCriteriaResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" name="CustomerFinancialTransactions" type="customerbd-v1-0:FinancialTransactionCollection"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCustomerFinancialTransactionsByCriteriaRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+            <xsd:element maxOccurs="1" name="GetCustomerFinancialTransactionsByCriteria" type="managebe-v1-0:GetCustomerFinancialTransactionsByCriteria"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialTransactionsByCriteriaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+            <xsd:element name="GetCustomerFinancialTransactionsByCriteriaResult" type="managebe-v1-0:GetCustomerFinancialTransactionsByCriteriaResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerFinancialTransactionsByCriteriaException">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+            <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+            <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+            <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+            <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+            <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+            <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+            <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+            <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+            <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+            <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+            <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+            <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="GetCustomerFinancialInfoResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialInfoResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialInfoException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialInfoException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerLastInvoiceResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerLastInvoiceResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerLastInvoiceException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerLastInvoiceException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialAnalysisRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialAnalysisRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialAnalysisResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialAnalysisResponse" name="paramter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialAnalysisException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialAnalysisException" name="paramter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialInfoRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialInfoRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionsRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionsRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionsResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionsResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionsException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionsException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionsByCriteriaRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionsByCriteriaRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionsByCriteriaResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionsByCriteriaResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerFinancialTransactionsByCriteriaException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerFinancialTransactionsByCriteriaException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerInvoiceByIdRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerInvoiceByIdRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerInvoiceByIdResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerInvoiceByIdResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerInvoiceByIdException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerInvoiceByIdException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerInvoicesRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerInvoicesRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerInvoicesResponse">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerInvoicesResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerInvoicesException">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerInvoicesException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetCustomerLastInvoiceRequest">
+    <WL5G3N0:part element="WL5G3N3:GetCustomerLastInvoiceRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetLedgerAccountByIdRequest">
+    <WL5G3N0:part element="WL5G3N3:GetLedgerAccountByIdRequest" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetLedgerAccountByIdResponse">
+    <WL5G3N0:part element="WL5G3N3:GetLedgerAccountByIdResponse" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetLedgerAccountByIdException">
+    <WL5G3N0:part element="WL5G3N3:GetLedgerAccountByIdException" name="parameter"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="ManageBillingEvents_pt">
+    <WL5G3N0:operation name="GetCustomerFinancialAnalysis">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerFinancialAnalysisRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerFinancialAnalysisResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerFinancialAnalysisException" name="GetCustomerFinancialAnalysisException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialInfo">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerFinancialInfoRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerFinancialInfoResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerFinancialInfoException" name="GetCustomerFinancialInfoException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialTransaction">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerFinancialTransactionRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerFinancialTransactionResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerFinancialTransactionException" name="GetCustomerFinancialTransactionException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialTransactions">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerFinancialTransactionsRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerFinancialTransactionsResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerFinancialTransactionsException" name="GetCustomerFinancialTransactionsException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialTransactionsByCriteria">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerFinancialTransactionsByCriteriaRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerFinancialTransactionsByCriteriaResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerFinancialTransactionsByCriteriaException" name="GetCustomerFinancialTransactionsByCriteriaException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerInvoiceById">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerInvoiceByIdRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerInvoiceByIdResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerInvoiceByIdException" name="GetCustomerInvoiceByIdException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerInvoices">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerInvoicesRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerInvoicesResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerInvoicesException" name="GetCustomerInvoicesException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerLastInvoice">
+      <WL5G3N0:input message="WL5G3N2:GetCustomerLastInvoiceRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetCustomerLastInvoiceResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetCustomerLastInvoiceException" name="GetCustomerLastInvoiceException"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetLedgerAccountById">
+      <WL5G3N0:input message="WL5G3N2:GetLedgerAccountByIdRequest"/>
+      <WL5G3N0:output message="WL5G3N2:GetLedgerAccountByIdResponse"/>
+      <WL5G3N0:fault message="WL5G3N2:GetLedgerAccountByIdException" name="GetLedgerAccountByIdException"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="ManageBillingEvents_ptSOAP11Binding" type="WL5G3N2:ManageBillingEvents_pt">
+    <WL5G3N4:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="GetCustomerFinancialAnalysis">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerFinancialAnalysis" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="paramter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerFinancialAnalysisException">
+        <WL5G3N4:fault name="GetCustomerFinancialAnalysisException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialInfo">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerFinancialInfo" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerFinancialInfoException">
+        <WL5G3N4:fault name="GetCustomerFinancialInfoException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialTransaction">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerFinancialTransaction" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerFinancialTransactionException">
+        <WL5G3N4:fault name="GetCustomerFinancialTransactionException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialTransactions">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerFinancialTransactions" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerFinancialTransactionsException">
+        <WL5G3N4:fault name="GetCustomerFinancialTransactionsException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerInvoiceById">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerInvoiceById" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerInvoiceByIdException">
+        <WL5G3N4:fault name="GetCustomerInvoiceByIdException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerInvoices">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerInvoices" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerInvoicesException">
+        <WL5G3N4:fault name="GetCustomerInvoicesException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerLastInvoice">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerLastInvoice" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerLastInvoiceException">
+        <WL5G3N4:fault name="GetCustomerLastInvoiceException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetLedgerAccountById">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetLedgerAccountById" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetLedgerAccountByIdException">
+        <WL5G3N4:fault name="GetLedgerAccountByIdException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetCustomerFinancialTransactionsByCriteria">
+      <WL5G3N4:operation soapAction="http://directvla.com/contract/businessdomain/ManageBillingEvents/v1-0/GetCustomerFinancialTransactionsByCriteria" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="parameter" use="literal"/>
+      </WL5G3N0:output>
+      <WL5G3N0:fault name="GetCustomerFinancialTransactionsByCriteriaException">
+        <WL5G3N4:fault name="GetCustomerFinancialTransactionsByCriteriaException" use="literal"/>
+      </WL5G3N0:fault>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="ManageBillingEvents_pt">
+    <WL5G3N0:port binding="WL5G3N2:ManageBillingEvents_ptSOAP11Binding" name="ManageBillingEvents_ptPort">
+      <WL5G3N4:address location="http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>

@@ -1,18 +1,21 @@
 package com.directv.afe.billing.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.channel.AbstractMessageChannel;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.messaging.MessageChannel;
 
 @Configuration
 @IntegrationComponentScan
 public class IntegrationConfig {
 
-	@Bean
-	public MessageChannel errorChannel() {
-		return new DirectChannel();
+	@Bean(name="errorChannel")
+	public AbstractMessageChannel errorChannel(@Value("${queues.billingAPI.channel.capacity}") Integer capacity) {
+		return new QueueChannel(capacity);
 	}
 	
 	@Bean
@@ -21,7 +24,7 @@ public class IntegrationConfig {
     }
 	
 	@Bean
-    public MessageChannel updateMailChannel() {
+    public MessageChannel addMailChannel() {
         return new DirectChannel();
     }
 	@Bean

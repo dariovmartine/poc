@@ -11,7 +11,7 @@ import com.directv.afe.billing.config.Config;
 import com.directv.afe.billing.domain.BillRequest;
 import com.directv.afe.billing.domain.BillResponse;
 import com.directv.afe.billing.domain.Country;
-import com.directv.afe.billing.domain.UserBill;
+import com.directv.afe.billing.domain.BillFlow;
 import com.directv.afe.billing.service.BillService;
 
 import io.swagger.annotations.Api;
@@ -65,15 +65,15 @@ public class BillController {
     		throw new IllegalArgumentException("country " + country +  " isn't in " +  Country.values());
     	}
 
-    	UserBill userBill = getUserBill(request);
+    	BillFlow userBill = getUserBill(request);
     	service.getBill(userBill);
     	
     	// and more
     	return userBill.getResponse();
     }
 
-	private UserBill getUserBill(BillRequest request) {
-		UserBill userBill = new UserBill();
+	private BillFlow getUserBill(BillRequest request) {
+		BillFlow userBill = new BillFlow();
 		userBill.setCountry(Country.parseString(request.getCountry().trim().toUpperCase()));
 		userBill.setCustomerKey(request.getCustomerKey().trim());
 		if(request.getBillID() != null && !request.getBillID().isEmpty()) {
