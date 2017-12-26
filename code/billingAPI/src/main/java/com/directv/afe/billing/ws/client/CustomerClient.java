@@ -14,27 +14,30 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.integration.channel.AbstractMessageChannel;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Component;
 
+import com.directv.afe.billing.customer.CRMSupportAndReadinessPt;
+import com.directv.afe.billing.customer.ContactMedium;
+import com.directv.afe.billing.customer.ContactMediumCollection;
+import com.directv.afe.billing.customer.Customer;
+import com.directv.afe.billing.customer.CustomerAccount;
+import com.directv.afe.billing.customer.EditCustomer;
+import com.directv.afe.billing.customer.EditCustomerRequest;
+import com.directv.afe.billing.customer.EditCustomerResponse;
+import com.directv.afe.billing.customer.EmailContact;
+import com.directv.afe.billing.customer.GetCustomer;
+import com.directv.afe.billing.customer.GetCustomerRequest;
+import com.directv.afe.billing.customer.GetCustomerResponse;
+import com.directv.afe.billing.customer.RequestMetadataType;
+import com.directv.afe.billing.domain.BillFlow;
+import com.directv.afe.billing.domain.BillResponse;
 import com.directv.afe.billing.domain.Country;
 import com.directv.afe.billing.domain.CustomerType;
-import com.directv.afe.billing.domain.BillFlow;
-import com.directvla.contract.businessdomain.crmsupportandreadiness.v1_0.CRMSupportAndReadinessPt;
-import com.directvla.schema.businessdomain.common.v1_0.ContactMedium;
-import com.directvla.schema.businessdomain.common.v1_0.ContactMediumCollection;
-import com.directvla.schema.businessdomain.common.v1_0.EmailContact;
-import com.directvla.schema.businessdomain.crmsupportandreadiness.v1_0.EditCustomer;
-import com.directvla.schema.businessdomain.crmsupportandreadiness.v1_0.EditCustomerRequest;
-import com.directvla.schema.businessdomain.crmsupportandreadiness.v1_0.EditCustomerResponse;
-import com.directvla.schema.businessdomain.crmsupportandreadiness.v1_0.GetCustomerRequest;
-import com.directvla.schema.businessdomain.crmsupportandreadiness.v1_0.GetCustomerResponse;
-import com.directvla.schema.businessdomain.customer.v1_0.Customer;
-import com.directvla.schema.businessdomain.customer.v1_0.CustomerAccount;
-import com.directvla.schema.util.commondatatypes.v1_0.RequestMetadataType;
 
 @Component
 public class CustomerClient {
@@ -47,9 +50,10 @@ public class CustomerClient {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerClient.class);
 
 	private CRMSupportAndReadinessPt soapService;
-
+	
 	@Autowired
-	private MessageChannel customerResponseChannel;
+	@Qualifier("errorChannel")
+	private AbstractMessageChannel errorChannel;
 
 	@Value("${service.customer.url}")
 	private String url;
@@ -86,7 +90,7 @@ public class CustomerClient {
 	 * @param countryCode
 	 * @return {@link Customer}
 	 */
-	public void getCustomerData(BillFlow userBill) {
+	public void getCustomerData(BillFlow userBill, AbstractMessageChannel outputChannel) {
 
 		GetCustomer customer = new GetCustomer();
 		customer.setCustomerKey(userBill.getCustomerKey());
@@ -106,14 +110,13 @@ public class CustomerClient {
 						userBill.setCustomerType(customerType);
 						userBill.setRegisteredMails(registeredMails);
 						Message<BillFlow> message = MessageBuilder.withPayload(userBill).build();
-						customerResponseChannel.send(message);
+						outputChannel.send(message);
 					}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (InterruptedException | ExecutionException execution) {
+					logger.error("Couldn't get customer information.");
+					BillResponse response = new BillResponse(BillResponse.RESOURCE_ERROR_CODE, BillResponse.RESOURCE_ERROR_MESSAGE);
+					Message<BillResponse> message = MessageBuilder.withPayload(response).build();
+					errorChannel.send(message);
 				}
 
 			}

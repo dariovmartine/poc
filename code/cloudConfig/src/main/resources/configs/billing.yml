@@ -6,3 +6,12 @@ service:
     url: http://localhost:9093/DTVLA-Services/CRMSupportAndReadinessService
   invoice:
     url: http://rgqamesb.dtvdev.net:80/DTVLA-Services/ManageBillingEventsService
+    
+queues:
+  capacity:
+    error: 10000
+    cutomer: 10000
+    mail: 10000
+    invoice: 10000
+    end: 10000
+    

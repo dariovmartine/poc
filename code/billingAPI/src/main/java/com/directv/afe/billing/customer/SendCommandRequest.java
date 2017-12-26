@@ -1,0 +1,92 @@
+
+package com.directv.afe.billing.customer;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestMetadata" type="{http://directvla.com/schema/util/commondatatypes/v1-0}RequestMetadataType"/>
+ *         &lt;element name="SendCommand" type="{http://directvla.com/schema/businessdomain/CRMSupportAndReadiness/v1-0}SendCommand"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "requestMetadata",
+    "sendCommand"
+})
+@XmlRootElement(name = "SendCommandRequest")
+public class SendCommandRequest {
+
+    @XmlElement(required = true)
+    protected RequestMetadataType requestMetadata;
+    @XmlElement(name = "SendCommand", required = true)
+    protected SendCommand sendCommand;
+
+    /**
+     * Gets the value of the requestMetadata property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RequestMetadataType }
+     *     
+     */
+    public RequestMetadataType getRequestMetadata() {
+        return requestMetadata;
+    }
+
+    /**
+     * Sets the value of the requestMetadata property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RequestMetadataType }
+     *     
+     */
+    public void setRequestMetadata(RequestMetadataType value) {
+        this.requestMetadata = value;
+    }
+
+    /**
+     * Gets the value of the sendCommand property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SendCommand }
+     *     
+     */
+    public SendCommand getSendCommand() {
+        return sendCommand;
+    }
+
+    /**
+     * Sets the value of the sendCommand property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SendCommand }
+     *     
+     */
+    public void setSendCommand(SendCommand value) {
+        this.sendCommand = value;
+    }
+
+}

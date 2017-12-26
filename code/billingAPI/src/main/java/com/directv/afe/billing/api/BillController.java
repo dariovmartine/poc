@@ -1,18 +1,18 @@
 package com.directv.afe.billing.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.directv.afe.billing.config.Config;
+import com.directv.afe.billing.domain.BillFlow;
 import com.directv.afe.billing.domain.BillRequest;
 import com.directv.afe.billing.domain.BillResponse;
 import com.directv.afe.billing.domain.Country;
-import com.directv.afe.billing.domain.BillFlow;
-import com.directv.afe.billing.service.BillService;
+import com.directv.afe.billing.service.BillFlowService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +29,7 @@ public class BillController {
     }
 	
 	@Autowired
-	private BillService service;
+	private BillFlowService service;
     
 	/**
 	 * @flow 
@@ -45,10 +45,10 @@ public class BillController {
 	 */
 	@ApiOperation(value = "Get a bill",response = BillResponse.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully email delivered"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+            @ApiResponse(code = BillResponse.OK_CODE, message = BillResponse.OK_MESSAGE),
+            @ApiResponse(code = BillResponse.UNAUTHORIZED_CODE, message = BillResponse.UNAUTHORIZED_MESSAGE),
+            @ApiResponse(code = BillResponse.FORBIDDEN_CODE, message = BillResponse.FORBIDDEN_MESSAGE),
+            @ApiResponse(code = BillResponse.NOT_FOUND_CODE, message = BillResponse.NOT_FOUND_MESSAGE)
     }
     )
     @RequestMapping(value="/getBill", method= RequestMethod.POST, consumes = "application/json",  produces = "application/json")
