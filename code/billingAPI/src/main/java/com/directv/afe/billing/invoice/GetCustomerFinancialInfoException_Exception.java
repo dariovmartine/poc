@@ -15,7 +15,9 @@ public class GetCustomerFinancialInfoException_Exception
     extends Exception
 {
 
-    /**
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
