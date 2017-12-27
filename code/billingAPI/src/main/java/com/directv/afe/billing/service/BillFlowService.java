@@ -17,6 +17,15 @@ import com.directv.afe.billing.domain.CustomerType;
 import com.directv.afe.billing.ws.client.CustomerClient;
 import com.directv.afe.billing.ws.client.InvoiceClient;
 
+/**
+ * This service is an orchestrator of the flow
+ * Every step of the flow will should be here
+ * Web Services call receive an output channel to know where to go next
+ * 
+ * The only purpose to have all Activators here is for readability
+ * if it gets messy move activators to his own object
+ * @author Marco Capo
+ */
 @Service
 public class BillFlowService {
 	
@@ -36,23 +45,34 @@ public class BillFlowService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BillFlowService.class);
 	
+	/**
+	 * This is the entry point of the flow
+	 * It will try to reach the customer information
+	 * To validate if has email and if it's prepaid client
+	 * @param dataFlow
+	 */
 	public void getBill(BillFlow dataFlow) {
 		customer.getCustomerData(dataFlow, customerResponseChannel);
 	}
 	
+	/**
+	 * It will choose the next step to continue based on customer information
+	 * @param msg
+	 * @return next channel
+	 */
 	@Router(inputChannel = "customerResponseChannel", defaultOutputChannel = "endChannel", poller = @Poller(fixedDelay = "1000"))
 	public String route(Message<BillFlow> msg) {		
 	  	
 		String channel = "endChannel";
-		BillFlow userBill = msg.getPayload();
-		if(userBill.getCustomerType() == CustomerType.PREPAID) {
-			if(hasToUpdateMail(userBill)) {
+		BillFlow flowData = msg.getPayload();
+		if(flowData.getCustomerType() == CustomerType.PREPAID) {
+			if(hasToUpdateMail(flowData)) {
 				channel = "addMailChannel";
 			}else {
 				channel = "getInvoiceChannel";
 			}
 		}
-		logger.debug("Channel selected: " + channel);
+		logger.info("Channel selected: " + channel + " for requestId: " + flowData.getRequestId());
 		
 		return channel;
 	}
@@ -74,12 +94,22 @@ public class BillFlowService {
 		return false;
 	}
 
+	/**
+	 * This step must update the customer email on ESB
+	 * @param msg
+	 * @return
+	 */
 	@ServiceActivator(inputChannel = "addMailChannel", outputChannel = "getInvoiceChannel", poller = @Poller(fixedDelay = "1000"))
 	public Message<BillFlow> addMail(Message<BillFlow> msg) {
 		customer.addMail(msg.getPayload());
 		return msg;
 	}
 	
+	/**
+	 * If on request we have a billingId, will try to get that one
+	 * If is not sent or is not found it will get the newest bill based on creation date
+	 * @param msg
+	 */
 	@ServiceActivator(inputChannel = "getInvoiceChannel", poller = @Poller(fixedDelay = "1000"))
 	public void getInvoice(Message<BillFlow> msg) {
 		invoice.getCustomerBills(msg.getPayload(), endChannel);
@@ -92,6 +122,6 @@ public class BillFlowService {
 		response.setUrl(bill.getUrl());
 		
 		msg.getPayload().getResponse().setResult(response);
-		logger.debug("End of flow.");
+		logger.info("End of flow. Successfully billingURL generated: " + bill.getEmail() + " for requestId: " + bill.getRequestId());
 	}
 }

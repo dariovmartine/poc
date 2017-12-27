@@ -3,7 +3,6 @@ package com.directv.afe.billing.ws.client;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.PostConstruct;
@@ -45,8 +44,6 @@ public class CustomerClient {
 	private static final Long PREPAID_ACCOUNT_IDENTIFIER = 1l;
 	private static final Long PREPAID_ACCOUNT_IDENTIFIER_TT = 27l;
 
-	private static final int RANDOM_INT = 100000000;
-
 	private static final Logger logger = LoggerFactory.getLogger(CustomerClient.class);
 
 	private CRMSupportAndReadinessPt soapService;
@@ -57,6 +54,9 @@ public class CustomerClient {
 
 	@Value("${service.customer.url}")
 	private String url;
+	
+	@Value("${service.customer.reason}")
+	private Integer editCustomerReason;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -66,15 +66,9 @@ public class CustomerClient {
 		soapService = (CRMSupportAndReadinessPt) factory.create();
 	}
 
-	private String getRequestId() {
-		Random rn = new Random();
-		int rnNumber = rn.nextInt(RANDOM_INT) + 1;
-		return String.valueOf(rnNumber);
-	}
-
-	private RequestMetadataType getRequestMetadataType(String country) {
+	private RequestMetadataType getRequestMetadataType(String country, String requestId) {
 		RequestMetadataType requestMetadataType = new RequestMetadataType();
-		requestMetadataType.setRequestID(getRequestId());
+		requestMetadataType.setRequestID(requestId);
 		requestMetadataType.setSourceID(country);
 		return requestMetadataType;
 	}
@@ -90,13 +84,14 @@ public class CustomerClient {
 	 * @param countryCode
 	 * @return {@link Customer}
 	 */
-	public void getCustomerData(BillFlow userBill, AbstractMessageChannel outputChannel) {
+	public void getCustomerData(BillFlow flowData, AbstractMessageChannel outputChannel) {
 
+		logger.info("Retreiving information for requestId: " + flowData.getRequestId());
 		GetCustomer customer = new GetCustomer();
-		customer.setCustomerKey(userBill.getCustomerKey());
+		customer.setCustomerKey(flowData.getCustomerKey());
 		GetCustomerRequest getCustomerRequest = new GetCustomerRequest();
 		getCustomerRequest.setGetCustomer(customer);
-		getCustomerRequest.setRequestMetadata(getRequestMetadataType(userBill.getCountry().toString()));
+		getCustomerRequest.setRequestMetadata(getRequestMetadataType(flowData.getCountry().toString(), flowData.getRequestId()));
 
 		soapService.getCustomerAsync((GetCustomerRequest) getCustomerRequest, new AsyncHandler<GetCustomerResponse>() {
 
@@ -107,10 +102,17 @@ public class CustomerClient {
 						CustomerType customerType = getCustomerType(res.get().getGetCustomerResult().getCustomer());
 						List<String> registeredMails = getCustomerEmails(
 								res.get().getGetCustomerResult().getCustomer());
-						userBill.setCustomerType(customerType);
-						userBill.setRegisteredMails(registeredMails);
-						Message<BillFlow> message = MessageBuilder.withPayload(userBill).build();
+						flowData.setCustomerType(customerType);
+						flowData.setRegisteredMails(registeredMails);
+						
+						logger.info("Successfully retreived customer information for requestId: " + flowData.getRequestId());
+						Message<BillFlow> message = MessageBuilder.withPayload(flowData).build();
 						outputChannel.send(message);
+					}else {
+						logger.error("Customer response has an anexpected object for requestId: " + flowData.getRequestId());
+						BillResponse response = new BillResponse(BillResponse.RESOURCE_ERROR_CODE, BillResponse.RESOURCE_ERROR_MESSAGE);
+						Message<BillResponse> message = MessageBuilder.withPayload(response).build();
+						errorChannel.send(message);
 					}
 				} catch (InterruptedException | ExecutionException execution) {
 					logger.error("Couldn't get customer information.");
@@ -122,7 +124,7 @@ public class CustomerClient {
 			}
 
 			private CustomerType getCustomerType(Customer customer) {
-				if (!isPrepaidAccount(customer, userBill.getCountry())) {
+				if (!isPrepaidAccount(customer, flowData.getCountry())) {
 					return CustomerType.POSTPAID;
 				}
 				return CustomerType.PREPAID;
@@ -130,10 +132,6 @@ public class CustomerClient {
 
 			/**
 			 * It validates account type based on the account rank
-			 * 
-			 * @param customer
-			 * @param countryCode
-			 * @return
 			 */
 			private boolean isPrepaidAccount(Customer customer, Country country) {
 				if (Country.TT == country) {
@@ -158,31 +156,31 @@ public class CustomerClient {
 		});
 	}
 
-	public void addMail(BillFlow userBill) {
+	public void addMail(BillFlow flowData) {
 
-		logger.debug("Adding customer emails");
+		logger.info("Adding customer emails for requestId: " + flowData.getRequestId());
 
-		String newEmail = userBill.getEmail();
-		String identification = userBill.getCustomerKey();
-		String country = userBill.getCountry().toString();
+		String newEmail = flowData.getEmail();
+		String identification = flowData.getCustomerKey();
+		String country = flowData.getCountry().toString();
 
 		EmailContact emailContact = new EmailContact();
 		emailContact.setAddressId(0);
 		emailContact.setEMailAddress(newEmail);
 
 		EditCustomerRequest request = new EditCustomerRequest();
-		request.setRequestMetadata(getRequestMetadataType(country));
+		request.setRequestMetadata(getRequestMetadataType(country, flowData.getRequestId()));
 		EditCustomer editCustomer = new EditCustomer();
 		Customer customer = new Customer();
 		customer.setID(identification);
-		ContactMediumCollection cont = new ContactMediumCollection();
-		customer.setContactableVia(cont);
+		ContactMediumCollection contact = new ContactMediumCollection();
+		customer.setContactableVia(contact);
 		CustomerAccount custAccount = new CustomerAccount();
 		custAccount.setID("0");
 		editCustomer.setCustAccount(custAccount);
 		editCustomer.setCust(customer);
 
-		Integer reason = 1;
+		Integer reason = editCustomerReason;
 		editCustomer.setReason(reason);
 		editCustomer.getCust().getContactableVia().getContactMedium().add(emailContact);
 		request.setEditCustomer(editCustomer);
@@ -192,16 +190,14 @@ public class CustomerClient {
 			public void handleResponse(Response<EditCustomerResponse> res) {
 				try {
 					if (res.get() instanceof EditCustomerResponse) {
-						// TODO: NOTIFY?
+						logger.info("Successfully updated email: " + flowData.getEmail() + " for requestId: " + flowData.getRequestId());
 					}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (InterruptedException | ExecutionException e) {
+					logger.error("Update email couldn't comunicate to service for requestId: " + flowData.getRequestId());
+					BillResponse response = new BillResponse(BillResponse.RESOURCE_ERROR_CODE, BillResponse.RESOURCE_ERROR_MESSAGE);
+					Message<BillResponse> message = MessageBuilder.withPayload(response).build();
+					errorChannel.send(message);
 				}
-
 			}
 		});
 

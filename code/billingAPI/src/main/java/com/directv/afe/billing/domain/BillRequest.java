@@ -4,6 +4,8 @@ import java.util.Map;
 
 public class BillRequest {
 	
+	private String requestId;
+	
 	private String country;
 	
 	private String customerKey;
@@ -56,5 +58,13 @@ public class BillRequest {
 
 	public void setBillID(String billID) {
 		this.invoiceID = billID;
+	}
+
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
 	}
 }

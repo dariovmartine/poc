@@ -64,12 +64,14 @@ public class InvoiceClient {
 		return requestMetadataType;
 	}
 	
-	public void getCustomerBills(BillFlow userBill, AbstractMessageChannel outputChannel) {
+	public void getCustomerBills(BillFlow flowData, AbstractMessageChannel outputChannel) {
+		
+		logger.info("Requesting invoice (bill) information for requestId " + flowData.getRequestId());
 		
 		GetCustomerInvoicesRequest request = new GetCustomerInvoicesRequest();
-		request.setRequestMetadata(getRequestMetadataType(userBill.getCountry().toString()));
+		request.setRequestMetadata(getRequestMetadataType(flowData.getCountry().toString()));
 		GetCustomerInvoices invoice = new GetCustomerInvoices();
-		invoice.setCustomerKey(userBill.getCustomerKey());
+		invoice.setCustomerKey(flowData.getCustomerKey());
 		request.setGetCustomerInvoices(invoice);
 		
 		soapService.getCustomerInvoicesAsync(request, new AsyncHandler<GetCustomerInvoicesResponse>() {
@@ -78,21 +80,22 @@ public class InvoiceClient {
 			public void handleResponse(Response<GetCustomerInvoicesResponse> res) {
 				try {
 					if (res.get() instanceof GetCustomerInvoicesResponse) {
-						BillInfo info = getBillInfo(userBill, res.get().getGetCustomerInvoicesResult().getInvoiceCollection().getInvoices());
-						
+						BillInfo info = getBillInfo(flowData, res.get().getGetCustomerInvoicesResult().getInvoiceCollection().getInvoices());
 						if(info != null) {
-							userBill.setInfo(info);
-							Message<BillFlow> message = MessageBuilder.withPayload(userBill).build();
+							flowData.setInfo(info);
+							
+							logger.info("Successfully obtain invoce (bill) information for requestId " + flowData.getRequestId());
+							Message<BillFlow> message = MessageBuilder.withPayload(flowData).build();
 							outputChannel.send(message);
 						}else {
-							logger.error("Couldn't get any billing.");
+							logger.error("Couldn't get any billing for requestId: " + flowData.getRequestId());
 							BillResponse response = new BillResponse(BillResponse.RESOURCE_ERROR_CODE, BillResponse.RESOURCE_ERROR_MESSAGE);
 							Message<BillResponse> message = MessageBuilder.withPayload(response).build();
 							errorChannel.send(message);
 						}
 					}
 				} catch (InterruptedException | ExecutionException execution) {
-					logger.error("Couldn't get invoice information.");
+					logger.error("Couldn't get invoice information for requestId " + flowData.getRequestId());
 					BillResponse response = new BillResponse(BillResponse.RESOURCE_ERROR_CODE, BillResponse.RESOURCE_ERROR_MESSAGE);
 					Message<BillResponse> message = MessageBuilder.withPayload(response).build();
 					errorChannel.send(message);
@@ -102,6 +105,11 @@ public class InvoiceClient {
 		});
 	}
 
+	/**
+	 * If on request we have a billingId, will try to get that one
+	 * If is not sent or is not found it will get the newest bill based on creation date
+	 * @return bill information based on requestId or the latest
+	 */
 	protected BillInfo getBillInfo(BillFlow userBill, List<Invoice> list) {
 		if(!userBill.getBillID().isEmpty()) {
 			for (Invoice invoice : list) {

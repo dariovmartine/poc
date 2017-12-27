@@ -33,13 +33,14 @@ public class BillController {
     
 	/**
 	 * @flow 
-	 *  get customer data
-     *	PREPAID should close the flow, they doesn't have billing
-     *	if it's POSTPAID
-     *	if it has email on request, we should update it
-     *	if not we should get the mail of the get customer data
-     *	Search for invoice to get the billing, get customer invoice
-     *	on request we have a billing ID, search for that bill otherwise get the lates
+	 *  Obtain from ISB the customer data
+     *	If user is type PREPAID should close the flow, they doesn't have billing
+     *	if send an email on request, we should update it if its different from the other mails
+     *	if doesn't send the email use the one on customer data
+     *		User has 2 mail address (BILLING and ?) allways update both
+     *	Search for invoice to get the billing, getCustomerInvoice
+     *	On request we have a billing ID, search for that bill otherwise get the latest
+     *	Validate billing with an external service based on country
 	 * @param request
 	 * @return
 	 */
@@ -53,26 +54,38 @@ public class BillController {
     )
     @RequestMapping(value="/getBill", method= RequestMethod.POST, consumes = "application/json",  produces = "application/json")
     public DeferredResult<BillResponse> sendEmail(@RequestBody(required = true) BillRequest request) {
-    	
 
-		// TODO: Validate if it has customerKey
-		// TODO: Validate that request has a valid email if it has
-		if (request.getCountry() == null)
-    		throw new IllegalArgumentException("country is null");
+		IllegalArgumentException hasError = validatePa1rams(request);
+		if(hasError != null) {
+			throw hasError;
+		}
+		
+    	BillFlow billFlow = getBillFlow(request);
+    	service.getBill(billFlow);
     	
-    	String country = request.getCountry().toUpperCase();
-    	if (! Country.contains(country)) {
-    		throw new IllegalArgumentException("country " + country +  " isn't in " +  Country.values());
-    	}
-
-    	BillFlow userBill = getUserBill(request);
-    	service.getBill(userBill);
-    	
-    	// and more
-    	return userBill.getResponse();
+    	return billFlow.getResponse();
     }
 
-	private BillFlow getUserBill(BillRequest request) {
+	/**
+	 * Here we check for all parameters that are needed for the flow
+	 * @param request to be validated if it has all the mandatory parameters
+	 * @return an exception if it has an invalid mandatory parameter
+	 */
+	private IllegalArgumentException validatePa1rams(BillRequest request) {
+		if (request.getCustomerKey() == null) {
+			return new IllegalArgumentException("CustomerKey is null");
+		}
+		if (request.getCountry() == null) {
+			return new IllegalArgumentException("Country is null");
+		}
+		String country = request.getCountry().toUpperCase();
+    	if (! Country.contains(country)) {
+    		throw new IllegalArgumentException("Country " + country +  " isn't in " +  Country.values());
+    	}
+		return null;
+	}
+
+	private BillFlow getBillFlow(BillRequest request) {
 		BillFlow userBill = new BillFlow();
 		userBill.setCountry(Country.parseString(request.getCountry().trim().toUpperCase()));
 		userBill.setCustomerKey(request.getCustomerKey().trim());
@@ -81,6 +94,9 @@ public class BillController {
 		}
 		if(request.getEmail() != null && !request.getEmail().isEmpty()) {
 			userBill.setEmail(request.getEmail().trim());
+		}
+		if(request.getRequestId() != null) {
+			userBill.setRequestId(request.getRequestId());
 		}
 		return userBill;
 	}
